@@ -1,0 +1,121 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 0.75rem;
+    font-family: 'Cambria', serif;
+    background: linear-gradient(135deg, rgb(79, 96, 243), rgb(59, 196, 217));
+    color: #333;
+    text-align:center;
+}
+
+body {
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 600px;
+}
+
+td {
+    padding: 10px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.input {
+    width: 100%;
+    min-width: 200px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    color: #333;
+    box-sizing: border-box;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #2f67f6;
+}
+
+button {
+    background: none;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+}
+
+.input-submit {
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    background: none;
+}
+
+.btn {
+    background: linear-gradient(135deg, rgb(17, 0, 255), rgb(3, 137, 158));
+    padding: 8px 14px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+}
+
+.btn:hover,
+.input-submit:hover,
+button:hover {
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+tr.task-text button {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+tr.task-text:hover td {
+    border-bottom: 2px dotted rgba(50, 106, 227, 1);
+}
+
+tr.task-text td {
+    border-bottom: 2px dotted rgba(50, 106, 227, 0);
+}
+
+tr.task-text:hover button {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+tr.task-text button:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+
+tr.task-text p,
+tr.task-text input {
+    font-size: 0.75rem;
+    color: #333;
+    background: transparent;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-family:inherit;
+    margin: 0;
+    padding: 0;
+}
