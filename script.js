@@ -42,36 +42,41 @@ const displayUpdatedList=()=>{
         const taskName=document.createElement('p');
         taskName.textContent=item.text;
 
-       
+        const taskCellEdit=document.createElement('td');
+        const editButton=document.createElement('button');
+        editButton.title='Edit Task';
+        editButton.textContent='✏';
         
         const taskCellDel=document.createElement('td');
         const delButton=document.createElement('button');
         delButton.textContent='🗑️';
+        delButton.title='Delete Task';
 
         const taskCellCompl=document.createElement('td');
         const completeButton=document.createElement('button');
+        completeButton.title='Mark Task as Complete';
         completeButton.textContent='✔';
 
-        const taskCellEdit=document.createElement('td');
-        const editButton=document.createElement('button');
-        editButton.textContent='✏';
+        
         
 
 
         
         taskCell.appendChild(taskName);
 
+        taskCellEdit.appendChild(editButton);
 
         taskCellDel.appendChild(delButton);
 
         taskCellCompl.appendChild(completeButton);
         
-        taskCellEdit.appendChild(editButton);
+        
         
         taskRow.appendChild(taskNo);
         taskRow.appendChild(taskCell);
-        taskRow.appendChild(taskCellDel);
         taskRow.appendChild(taskCellEdit);
+        taskRow.appendChild(taskCellDel);
+
         
         taskRow.appendChild(taskCellCompl);
         
@@ -105,74 +110,69 @@ const displayUpdatedList=()=>{
 
         let isEditing=false;
         function editTask(taskText) {
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.value = item.text;
-    input.classList.add('task-edit-input');
-    if(!isEditing){
-        isEditing=true;
-        delButton.disabled=true;
-
-    completeButton.disabled=true;
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = item.text;
+            input.classList.add('task-edit-input');
+            if(!isEditing){
+                isEditing=true;
+                delButton.disabled=true;
+                completeButton.disabled=true;
 
  
-    }else{
-        isEditing=false;
-        delButton.disabled=false;
+            }else{
+                isEditing=false;
+                delButton.disabled=false;
 
-    completeButton.disabled=false;
+                completeButton.disabled=false;
 
 
-    }
+            }
     
 
-    taskText.replaceWith(input);
-    input.focus();
+            taskText.replaceWith(input);
+            input.focus();
 
-    const saveEdit = () => {
-        const newText = input.value.trim();
-        if (newText !== "") {
-            item.text = newText;
-            storedTasks[index].text = newText;
-            localStorage.setItem("Tasks", JSON.stringify(storedTasks));
+            const saveEdit = () => {
+                const newText = input.value.trim();
+                if (newText !== "") {
+                    item.text = newText;
+                    storedTasks[index].text = newText;
+                    localStorage.setItem("Tasks", JSON.stringify(storedTasks));
+                }
+
+                const newTaskText = document.createElement('p');
+                newTaskText.textContent = item.text;
+                newTaskText.classList.add('task-text'); 
+                input.replaceWith(newTaskText);
+
+                newTaskText.addEventListener('dblclick', () => editTask(newTaskText));
+            }
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    isEditing=false;
+                    delButton.disabled=false;
+                    completeButton.disabled=false;
+                    saveEdit();
+                };
+            });
         }
 
-        const newTaskText = document.createElement('p');
-        newTaskText.textContent = item.text;
-        newTaskText.classList.add('task-text'); 
-        input.replaceWith(newTaskText);
 
-        newTaskText.addEventListener('dblclick', () => editTask(newTaskText));
-    };
-
-
-    input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-                 isEditing=false;
-        delButton.disabled=false;
-
-    completeButton.disabled=false;
-
-
-            saveEdit();
-        };
-    });
-}
-
-
-        
         editButton.addEventListener('click', ()=>{editTask(taskName)});
         taskName.addEventListener('dblclick',()=>{editTask(taskName)});
 
         const clearButton=document.getElementById('clearTasks'); 
 
         clearButton.addEventListener('click', function clrTasks(){
-        taskList.replaceChildren();
-        storedTasks=[];
-        localStorage.removeItem('Tasks');
-        displayUpdatedList();
+            taskList.replaceChildren();
+            storedTasks=[];
+            localStorage.removeItem('Tasks');
+            displayUpdatedList();
         });
     }
+
     storedTasks.forEach(addToViewableTasks);
     
     const addEmptyTaskRow=()=>{
@@ -185,7 +185,7 @@ const displayUpdatedList=()=>{
         const lastTaskInputCell=document.createElement('td');
 
         const lastTaskInput=document.createElement('input');
-        lastTaskInput.placeholder='Add task...';
+        lastTaskInput.placeholder='Enter task...';
 
         lastTaskInputCell.appendChild(lastTaskInput);
 
@@ -200,6 +200,7 @@ const displayUpdatedList=()=>{
         const lastTaskAddBtn=document.createElement('button');
         lastTaskAddBtn.textContent='➕';
         lastTaskAddBtn.disabled=true;
+        lastTaskAddBtn.title=(lastTaskAddBtn.disabled?"Type to add a Task":"Add Task");
         lastTaskAddBtnCell.appendChild(lastTaskAddBtn);
 
         const addNewTask=()=>{

@@ -1,17 +1,59 @@
 html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    font-size: 0.75rem;
-    font-family: 'Cambria', serif;
-    background: linear-gradient(135deg, rgb(79, 96, 243), rgb(59, 196, 217));
-    color: #333;
-    text-align:center;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-size:0.65rem;
+  display: flex;
+  flex-direction: column;
 }
 
 body {
-    padding: 2rem;
-    box-sizing: border-box;
+  background: linear-gradient(135deg, rgb(79, 96, 243), rgb(44, 200, 205)) no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: 'Cambria', serif;
+  color: #333;
+  text-align: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.container {
+  flex: 1;
+  overflow-y: auto;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 1rem;
+  padding-right: 8px; /* scrollbar spacing */
+}
+
+.container::-webkit-scrollbar {
+  width: 8px;
+}
+.container::-webkit-scrollbar-track {
+  background: rgba(79, 96, 243, 0.1);
+}
+.container::-webkit-scrollbar-thumb {
+  background: rgba(79, 96, 243, 0.4);
+  border-radius: 10px;
+}
+.container::-webkit-scrollbar-thumb:hover {
+  background: rgba(79, 96, 243, 0.6);
+}
+
+#clearTasks {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  margin-top: 10px;
 }
 
 table {
@@ -21,19 +63,12 @@ table {
 }
 
 td {
-    padding: 10px;
+    padding: 5px;
     text-align: left;
     vertical-align: middle;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
+
 
 .input {
     width: 100%;
@@ -41,7 +76,7 @@ td {
     height: 30px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    padding: 8px;
+    padding: 5px;
     background: rgba(255, 255, 255, 0.3);
     color: #333;
     box-sizing: border-box;
@@ -60,7 +95,7 @@ button {
 }
 
 .input-submit {
-    padding: 8px;
+    padding: 5px;
     border: none;
     border-radius: 5px;
     background: none;
@@ -72,6 +107,7 @@ button {
     border: none;
     color: white;
     border-radius: 5px;
+    margin-top:15px;
 }
 
 .btn:hover,
@@ -88,8 +124,14 @@ tr.task-text button {
     pointer-events: none;
 }
 
+button:disabled:hover{
+    cursor:not-allowed;
+    transform:none;
+}
+
 tr.task-text:hover td {
     border-bottom: 2px dotted rgba(50, 106, 227, 1);
+    transition: border-bottom 0.5s ease-in-out;
 }
 
 tr.task-text td {
@@ -103,7 +145,7 @@ tr.task-text:hover button {
 
 tr.task-text button:hover {
     transform: scale(1.1);
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease-in-out;
 }
 
 
